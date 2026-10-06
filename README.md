@@ -8,8 +8,6 @@
 > Successor of my [multi-agent-research-system](https://github.com/Leito2/multi-agent-research-system): GraphRAG
 > instead of vector-only RAG, and a self-hosted search stack instead of Tavily.
 
-- ⚡ **Streams with Server-Sent Events (SSE):** every agent step (planning, research, auditing, synthesis) is pushed live to the UI while an investigation runs.
-
 **Status:** 🟡 M0 bootstrap (contracts, deterministic Leader, graph schema, Obsidian parser, SDD harness, CI).
 See [`PLAN.md`](PLAN.md) (Spanish).
 
@@ -25,6 +23,13 @@ held-out link recall) — M8._
 - Search for agents: metasearch, crawling to Markdown, reranking (and why not Tavily)
 - MCP tools, sandboxed code, durable execution and human-in-the-loop
 - Spec-driven development (EARS, harness, human gates)
+### Key technologies at a glance
+- **GraphRAG on Neo4j** — uses the links between notes to answer questions that span several notes.
+- **Multi-agent LangGraph** — specialised agents research in parallel and an auditor checks their findings.
+- **MCP tools** — notes, graph, web and code are exposed as reusable tool servers.
+- **Self-hosted search (SearXNG + Crawl4AI)** — web research without a paid search API.
+- **SSE (Server-Sent Events)** — the progress of each agent is shown live while it works.
+- **Spec-driven development** — requirements written in EARS, each one backed by a test.
 ### 3. Architecture · 4. Design Decisions · 5. Journey of an Investigation
 
 ## Part II — Components · Part III — The Graph · Part IV — The Agents and Research Modes

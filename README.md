@@ -8,6 +8,8 @@
 > Successor of my [multi-agent-research-system](https://github.com/Leito2/multi-agent-research-system): GraphRAG
 > instead of vector-only RAG, and a self-hosted search stack instead of Tavily.
 
+- ⚡ **Streams with Server-Sent Events (SSE):** every agent step (planning, research, auditing, synthesis) is pushed live to the UI while an investigation runs.
+
 **Status:** 🟡 M0 bootstrap (contracts, deterministic Leader, graph schema, Obsidian parser, SDD harness, CI).
 See [`PLAN.md`](PLAN.md) (Spanish).
 

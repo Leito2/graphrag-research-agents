@@ -1,0 +1,32 @@
+[project]
+name = "graphrag-research-agents"
+version = "0.1.0"
+description = "GraphRAG multi-agent research system for financial-crime intelligence (LangGraph, Neo4j, MCP)."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["researchcore"]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+researchcore = { workspace = true }
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["researchcore"]
+
+[tool.pytest.ini_options]
+testpaths = ["packages/researchcore/tests", "tests"]

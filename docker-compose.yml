@@ -1,0 +1,47 @@
+# Profiles (PLAN §11): core (8 GB) | full (⏳16GB: Langfuse self-hosted, live graph from P1).
+x-core: &core
+  profiles: ["core", "full"]
+
+services:
+  neo4j:
+    <<: *core
+    image: neo4j:community                   # pin a version in M1 (calendar versioning since 2025)
+    environment:
+      NEO4J_AUTH: neo4j/research-dev-only
+      NEO4J_PLUGINS: '["graph-data-science", "apoc"]'
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 512m
+    volumes: ["./infra/neo4j:/import:ro"]
+    ports: ["7474:7474", "7687:7687"]
+    mem_limit: 1400m
+
+  qdrant:
+    <<: *core
+    image: qdrant/qdrant:latest              # pin in M2
+    ports: ["6333:6333"]
+    mem_limit: 400m
+
+  postgres:                                  # LangGraph checkpointer
+    <<: *core
+    image: postgres:17
+    environment: { POSTGRES_DB: research, POSTGRES_USER: research, POSTGRES_PASSWORD: research }
+    ports: ["5432:5432"]
+    mem_limit: 250m
+
+  redis:
+    <<: *core
+    image: redis:8
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "192mb"]
+    ports: ["6379:6379"]
+    mem_limit: 250m
+
+  llm-gateway:
+    <<: *core
+    build: ../llm-gateway                    # P0 — aliases smart, vision, extract, judge
+    env_file: ../llm-gateway/.env.example
+    environment: { GW_REDIS_URL: "redis://redis:6379/1" }
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    ports: ["8080:8080"]
+    mem_limit: 700m
+
+  # agents, MCP servers (graph, docs, web, code), sandbox and API arrive in M5–M7.

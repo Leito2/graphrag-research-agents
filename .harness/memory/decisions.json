@@ -121,7 +121,7 @@
     },
     {
       "id": "ADR-009",
-      "title": "Vault excerpts reach cloud models only with VAULT_CLOUD_CONSENT=true; exclusions + Presidio",
+      "title": "Vault excerpts reach cloud models only with VAULT_CLOUD_CONSENT=true (enabled by the user, 2026-10-06); exclusions + Presidio",
       "status": "accepted",
       "date": "2026-10-06",
       "source": "PLAN.md §0/§2/§6"

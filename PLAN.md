@@ -150,7 +150,7 @@ El RAG vectorial encuentra fragmentos parecidos pero no sigue enlaces, no agrega
 - **ADR-6 · El contenido externo es dato, no instrucción.** Delimitado, filtrado por Prompt Guard (P0) y sin capacidad de disparar herramientas.
 - **ADR-7 · Búsqueda externa propia y multi-proveedor en vez de Tavily** (§6).
 - **ADR-8 · Todo LLM pasa por P0** (caché, breakers, cuotas, guardrails, presupuesto).
-- **ADR-9 · Privacidad por consentimiento explícito.** Los fragmentos del vault solo salen hacia el free tier de Google AI Studio si `VAULT_CLOUD_CONSENT=true`; si no, P4 usa solo modelos locales. Siempre se excluyen las carpetas y tags privados, y Presidio redacta PII antes de enviar.
+- **ADR-9 · Privacidad por consentimiento explícito.** Los fragmentos del vault solo salen hacia el free tier de Google AI Studio si `VAULT_CLOUD_CONSENT=true` (**activado por el usuario el 2026-10-06**: es el valor por defecto del repo); con `false`, P4 usa solo modelos locales. Siempre se excluyen las carpetas y tags privados, y Presidio redacta PII antes de enviar.
 - **ADR-10 · Neo4j como base de grafos** (Cypher, GDS, índice vectorial, ecosistema GraphRAG). Alternativas documentadas: Memgraph, FalkorDB.
 - **ADR-11 · Aprobación humana antes de escribir** (interrupt de LangGraph) con vista previa de la nota.
 
@@ -281,7 +281,7 @@ Hallazgos tipados (`note_vs_web`, `note_vs_note`, `visual_vs_text`, `numeric`, `
 ### 5.5 Modelos (todos vía P0)
 | Uso | Alias | Principal | Respaldo |
 |---|---|---|---|
-| Planner, investigadores, síntesis | `smart` | Gemma 4 31B (AI Studio) si hay consentimiento | Groq Llama 3.3 70B → Ollama Qwen3 1.7B |
+| Planner, investigadores, síntesis | `smart` | Gemma 4 31B (AI Studio; consentimiento activado) | Groq Llama 3.3 70B → Ollama Qwen3 1.7B |
 | Visión | `vision` | Gemma 4 31B (multimodal) | `mock` |
 | Extracción para el grafo | `extract` | Gemma 4 26B A4B | Groq → Ollama |
 | Crítica y evaluación | `judge` / `judge_golden` | Gemma 3 4B local / Gemma 4 31B | `mock` |

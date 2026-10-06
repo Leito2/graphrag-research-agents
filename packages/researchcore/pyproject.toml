@@ -1,9 +1,9 @@
 [project]
 name = "researchcore"
 version = "0.1.0"
-description = "Shared contracts (research state, evidence, contradictions), graph schema and the deterministic Leader."
+description = "Contracts, deterministic Leader, graph schema and the Obsidian vault parser."
 requires-python = ">=3.12"
-dependencies = ["pydantic>=2.8"]
+dependencies = ["pydantic>=2.8", "pyyaml>=6.0"]
 
 [build-system]
 requires = ["hatchling"]

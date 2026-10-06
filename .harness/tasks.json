@@ -4,7 +4,7 @@
   "tasks": [
     {
       "id": "GRA-001",
-      "title": "GraphRAG multi-agent research system \u2014 M1 data and graph",
+      "title": "M1 \u2014 vault indexing (parser, chunks, structural graph, live watcher)",
       "phase": "spec",
       "status": "ready",
       "spec_dir": ".harness/specs/graphrag-research-system",

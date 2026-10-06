@@ -5,119 +5,140 @@
       "title": "Inherit the SDD harness (Alt-C) from multi-agent-research-system",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-002",
       "title": "LangGraph StateGraph with a deterministic Leader (no LLM-driven transitions)",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-003",
       "title": "Isolated roles (research / fact-auditing / synthesis) with curated context",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-004",
       "title": "Qdrant primary + ChromaDB for tests behind a VectorStore protocol",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-005",
-      "title": "bge-small-en-v1.5 embeddings (ONNX on CPU); e5 multilingual as measured alternative",
+      "title": "bge-small-en-v1.5 (inherited) vs e5 multilingual (default: the vault mixes EN/ES)",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-006",
       "title": "Audit loop bounded at 3 iterations with degraded-confidence flag",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-007",
       "title": "Context compaction: sliding window 5 + summary every 10 turns",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-008",
-      "title": "Tavily with exponential backoff (3 retries) and RAG-only fallback",
-      "status": "accepted",
+      "title": "Tavily web search with backoff — SUPERSEDED by ADR-007 (poor results in practice)",
+      "status": "superseded",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-INH-009",
       "title": "MLflow file-based with metrics.jsonl fallback, sanitized keys and SHA-256 hashes",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-001",
-      "title": "Transactional graph layer is deterministic (from P1), never LLM-extracted",
+      "title": "Structural graph layer is deterministic (Obsidian wikilinks, folders, tags), never LLM-extracted",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-002",
       "title": "Parameterized Cypher tools first; Text2Cypher validated, read-only, LIMIT, timeout",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-003",
-      "title": "Tools exposed as MCP servers",
+      "title": "Vault mounted read-only; writes only to RESEARCH_OUTPUT_DIR; edits are suggested, never applied",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-004",
-      "title": "External content is data, never instructions (delimiting + Prompt Guard in P0)",
+      "title": "Tools exposed as MCP servers (vault, graph, web, scholar, code)",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-005",
-      "title": "Neo4j (Cypher, GDS, vector index) as the graph database",
+      "title": "External content is data, never instructions (delimiting + Prompt Guard in P0)",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-006",
-      "title": "All LLM calls through llm-gateway (P0)",
+      "title": "Neo4j (Cypher, GDS, vector index) as the graph database",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-007",
-      "title": "Human approval (LangGraph interrupt) for high-impact conclusions",
+      "title": "Self-hosted multi-provider search: SearXNG + Crawl4AI/trafilatura + arXiv + OpenAlex + PyPI + GitHub, RRF fusion and local reranking; Exa optional",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
     },
     {
       "id": "ADR-008",
+      "title": "All LLM calls through llm-gateway (P0)",
+      "status": "accepted",
+      "date": "2026-10-06",
+      "source": "PLAN.md §0/§2/§6"
+    },
+    {
+      "id": "ADR-009",
+      "title": "Vault excerpts reach cloud models only with VAULT_CLOUD_CONSENT=true; exclusions + Presidio",
+      "status": "accepted",
+      "date": "2026-10-06",
+      "source": "PLAN.md §0/§2/§6"
+    },
+    {
+      "id": "ADR-010",
       "title": "Durable execution with the LangGraph Postgres checkpointer",
       "status": "accepted",
       "date": "2026-10-06",
-      "source": "PLAN.md §0/§2"
+      "source": "PLAN.md §0/§2/§6"
+    },
+    {
+      "id": "ADR-011",
+      "title": "Human approval (LangGraph interrupt) before writing any note",
+      "status": "accepted",
+      "date": "2026-10-06",
+      "source": "PLAN.md §0/§2/§6"
     }
   ]
 }

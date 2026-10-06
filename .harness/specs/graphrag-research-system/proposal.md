@@ -1,17 +1,20 @@
-# Proposal: GraphRAG Multi-Agent Research System
+# Proposal: GraphRAG Study Research Agents
 
 ## Problem
-Financial-crime questions are relational (shared devices, cards, IPs), global (which rings are active) and
-multi-source (graph, policies, web, receipts). Vector RAG and single agents fail on multi-hop and global questions
-and self-confirm. See PLAN.md §1.
+A large Obsidian study vault (~1,000 notes, ~4,700 wikilinks) is hard to exploit: multi-hop questions across linked
+notes, global questions (main and weak topics), outdated notes, contradictions between notes and broken code
+snippets. Vector RAG and single agents fail at these, and the previous web search provider (Tavily) performed poorly.
+See PLAN.md §1.
 
 ## Scope
-Knowledge graph (transactional from P1 + documents + temporal facts), GraphRAG (local, global, hybrid, Cypher),
-multi-agent LangGraph system with a deterministic Leader and fact-auditing loop, MCP tools, sandboxed code,
-vision audit, durable execution, human approval, evaluation against known ground truth.
+Obsidian-aware parser with live re-indexing; knowledge graph (structural from wikilinks/tags/folders + extracted
+concepts + temporal facts); GraphRAG (local, global, hybrid, Cypher); multi-agent LangGraph system with a
+deterministic Leader and fact-auditing loop; self-hosted search stack (SearXNG, Crawl4AI, arXiv, OpenAlex, PyPI,
+GitHub); MCP tools; sandboxed snippet execution; human-approved research notes written to one output folder;
+evaluation against known ground truth.
 
 ## Out of scope
-Production deployment, real customer data, model fine-tuning, real-time blocking actions.
+Editing existing notes automatically, syncing to Obsidian Sync/cloud, model fine-tuning, public deployment.
 
 ## Risks
-Free-tier quotas, noisy extraction with small models, prompt injection through web content, 8 GB RAM (PLAN §14).
+Search engines blocking SearXNG, Chromium RAM, privacy of vault excerpts, accidental writes (PLAN §14).

@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 PROFILE ?= core
-.PHONY: help doctor setup up down test lint fmt load-graph ask eval
+.PHONY: help doctor setup up down test lint fmt index ask audit eval
 
 help:        ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
@@ -18,5 +18,5 @@ lint:        ## Lint
 	uv run ruff check .
 fmt:         ## Format
 	uv run ruff format .
-load-graph ask eval:   ## Implemented in later milestones (PLAN.md §13)
+index ask audit eval:   ## Implemented in later milestones (PLAN.md §13)
 	@echo "'$@' arrives in a later milestone — see PLAN.md §13"; exit 1

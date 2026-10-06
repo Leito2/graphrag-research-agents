@@ -2,14 +2,14 @@
 
 ## Gates you own
 - **Spec gate:** every requirement uses an EARS pattern, is testable, has a `REQ-xx` id; failure modes are covered
-  (no evidence, provider down, quota exhausted, prompt injection in web content, contradiction loop bound).
+  (no evidence, provider down, search engines blocked, prompt injection in web content, consent off, loop bound).
 - **Design gate:** modules match PLAN §12; at least two alternatives with rejection reasons; ADRs recorded.
 
 ## Red flags (stop the pipeline)
 - A phase transition decided by an LLM call.
-- `requirements.md` edited during `apply`.
-- A diff > 600 lines without decomposition, or EARS requirements missing from `review.md`.
-- Secrets in git history; context fill per agent consistently > 40%.
+- Any code path able to write outside `RESEARCH_OUTPUT_DIR` or to modify an existing note.
+- Vault content sent to a cloud provider while `VAULT_CLOUD_CONSENT=false`.
+- `requirements.md` edited during `apply`; diffs > 600 lines; EARS requirements missing from `review.md`.
 
 ## Health thresholds
 | Signal | Healthy | Warning | Critical |

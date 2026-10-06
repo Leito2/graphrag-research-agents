@@ -1,15 +1,17 @@
-"""Knowledge-graph schema (PLAN §4.1). The transactional layer mirrors P1's EntityEdge contract."""
+"""Knowledge-graph schema (PLAN §4.1): the structural layer mirrors the Obsidian vault."""
 NODE_KEYS: dict[str, str] = {
-    "User": "id", "Card": "id", "Device": "id", "IpCountry": "code", "Merchant": "id",
-    "Document": "id", "Chunk": "id", "Entity": "id", "Typology": "id", "Community": "id", "Finding": "id",
+    "Note": "path", "MissingNote": "target", "Folder": "path", "Tag": "name", "Section": "id", "Chunk": "id",
+    "Attachment": "path", "Concept": "id", "Fact": "id", "Community": "id", "Finding": "id", "Source": "url",
 }
 
-# Relationship types published by P1 on topic `entity-edges` (fraudcore.contracts.EntityEdge.rel).
-TRANSACTIONAL_RELS: dict[str, tuple[str, str]] = {
-    "USES_CARD": ("User", "Card"),
-    "USES_DEVICE": ("User", "Device"),
-    "CONNECTS_FROM": ("User", "IpCountry"),
-    "PAYS": ("User", "Merchant"),
+# Deterministic relationships produced by the vault parser (ADR-1) — no LLM involved.
+STRUCTURAL_RELS: dict[str, tuple[str, str]] = {
+    "LINKS_TO": ("Note", "Note|MissingNote"),
+    "IN_FOLDER": ("Note|Folder", "Folder"),
+    "TAGGED": ("Note", "Tag"),
+    "HAS_SECTION": ("Note", "Section"),
+    "HAS_CHUNK": ("Section", "Chunk"),
+    "EMBEDS": ("Note", "Attachment|Note"),
 }
 
 WRITE_CLAUSES = ("CREATE", "MERGE", "DELETE", "DETACH", "SET", "REMOVE", "DROP", "LOAD CSV", "CALL DBMS")
@@ -23,6 +25,6 @@ def constraints_cypher() -> list[str]:
 
 
 def is_read_only(cypher: str) -> bool:
-    """First guard for Text2Cypher (PLAN §6.4); the read-only DB role is the second one."""
+    """First guard for Text2Cypher (PLAN §4.3); the read-only DB role is the second one."""
     upper = " ".join(cypher.upper().split())
     return not any(clause in upper for clause in WRITE_CLAUSES) and " LIMIT " in f" {upper} "

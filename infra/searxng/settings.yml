@@ -1,0 +1,18 @@
+# Minimal SearXNG config for agent use (PLAN §6). Verify keys against the pinned image in M6.
+use_default_settings: true
+server:
+  secret_key: "change-me-local-only"
+  limiter: false            # single local client (the web-mcp server)
+  image_proxy: false
+search:
+  safe_search: 0
+  formats: [html, json]     # JSON output is required by web-mcp
+engines:                    # several engines at once: if one blocks, the rest keep answering
+  - { name: duckduckgo, disabled: false }
+  - { name: brave, disabled: false }
+  - { name: bing, disabled: false }
+  - { name: mojeek, disabled: false }
+  - { name: wikipedia, disabled: false }
+  - { name: github, disabled: false }
+  - { name: stackoverflow, disabled: false }
+  - { name: arxiv, disabled: false }

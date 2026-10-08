@@ -150,21 +150,21 @@
     {
       "id": "ADR-013",
       "title": "Ingest watcher runs on the host with watchdog's native observer; polling observer opt-in for containers",
-      "status": "proposed",
+      "status": "accepted",
       "date": "2026-10-08",
       "source": ".harness/specs/graphrag-research-system/design.md"
     },
     {
       "id": "ADR-014",
       "title": "Neo4j/Qdrant consistency by write order: vectors first, Note.hash as commit marker, startup reconcile",
-      "status": "proposed",
+      "status": "accepted",
       "date": "2026-10-08",
       "source": ".harness/specs/graphrag-research-system/design.md"
     },
     {
       "id": "ADR-015",
       "title": "Embeddings: multilingual-e5-small (ONNX export, fastembed custom model, local), passage/query prefixes",
-      "status": "proposed",
+      "status": "accepted",
       "date": "2026-10-08",
       "source": ".harness/specs/graphrag-research-system/design.md"
     }

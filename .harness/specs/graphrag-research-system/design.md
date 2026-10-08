@@ -1,8 +1,8 @@
 # Design — GRA-001 (M1): vault indexing
 
 **Inputs:** `proposal.md`, `requirements.md` (spec gate approved 2026-10-08). **Covers:** REQ-02, REQ-15 – REQ-20.
-**Architecture:** hexagonal (ADR-012). New decisions are recorded as ADR-013 – ADR-015 (status `proposed` until the
-design gate).
+**Architecture:** hexagonal (ADR-012). New decisions are recorded as ADR-013 – ADR-015 (design gate approved
+2026-10-08).
 
 ## 1. Scope
 

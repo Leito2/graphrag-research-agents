@@ -13,7 +13,7 @@ _FENCE = re.compile(r"^(```|~~~).*?^\1", re.DOTALL | re.MULTILINE)
 _INLINE_CODE = re.compile(r"`[^`\n]*`")
 _LINK = re.compile(r"(!?)\[\[([^\]\n]+?)\]\]")
 _TAG = re.compile(r"(?<![\w/#&])#([A-Za-z_][\w/-]*)")
-_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$", re.MULTILINE)
+_HEADING = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t]*#*[ \t]*$", re.MULTILINE)
 
 
 @dataclass(frozen=True)
@@ -33,27 +33,34 @@ class ParsedNote:
     links: list[Link] = field(default_factory=list)
     tags: set[str] = field(default_factory=set)
     headings: list[tuple[int, str]] = field(default_factory=list)
+    heading_starts: list[int] = field(default_factory=list)    # offset of each heading in the original text
+    body_start: int = 0                                         # offset just after the frontmatter
     code_blocks: int = 0
 
 
-def _strip_code(body: str) -> tuple[str, int]:
+def _blank(m: re.Match) -> str:
+    return re.sub(r"[^\n]", " ", m.group(0))
+
+
+def _mask_code(body: str) -> tuple[str, int]:
+    """Blank out code with equal-length whitespace, so offsets in the result are offsets in `body`."""
     blocks = len(_FENCE.findall(body))
-    return _INLINE_CODE.sub("", _FENCE.sub("", body)), blocks
+    return _INLINE_CODE.sub(_blank, _FENCE.sub(_blank, body)), blocks
 
 
 def parse_note(text: str, rel_path: str) -> ParsedNote:
     frontmatter: dict = {}
     fm_error = False
-    body = text
+    body, body_start = text, 0
     if m := _FRONTMATTER.match(text):
         try:
             loaded = yaml.safe_load(m.group(1))
         except yaml.YAMLError:
             loaded, fm_error = None, True
         frontmatter = loaded if isinstance(loaded, dict) else {}
-        body = text[m.end():]
+        body, body_start = text[m.end():], m.end()
 
-    prose, n_blocks = _strip_code(body)
+    prose, n_blocks = _mask_code(body)
     links = []
     for bang, inner in _LINK.findall(prose):
         target, _, alias = inner.partition("|")
@@ -61,7 +68,8 @@ def parse_note(text: str, rel_path: str) -> ParsedNote:
         links.append(Link(target=target.strip(), heading=heading.strip() or None,
                           alias=alias.strip() or None, embed=bang == "!"))
 
-    headings = [(len(h), t) for h, t in _HEADING.findall(prose)]
+    heading_matches = list(_HEADING.finditer(prose))
+    headings = [(len(h.group(1)), h.group(2)) for h in heading_matches]
     prose_without_headings = _HEADING.sub("", prose)
     tags = {t for t in _TAG.findall(prose_without_headings)}
     fm_tags = frontmatter.get("tags") or []
@@ -69,4 +77,6 @@ def parse_note(text: str, rel_path: str) -> ParsedNote:
 
     path = PurePosixPath(rel_path)
     return ParsedNote(path=str(path), title=path.stem, frontmatter=frontmatter, frontmatter_error=fm_error,
-                      links=links, tags=tags, headings=headings, code_blocks=n_blocks)
+                      links=links, tags=tags, headings=headings,
+                      heading_starts=[body_start + h.start() for h in heading_matches], body_start=body_start,
+                      code_blocks=n_blocks)

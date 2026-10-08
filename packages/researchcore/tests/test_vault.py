@@ -58,3 +58,12 @@ def test_relative_links_and_dotted_titles():
 def test_invalid_frontmatter_is_flagged_not_fatal():
     n = parse_note("---" + NL + "tags: [unclosed" + NL + "---" + NL + "# Title" + NL, "x.md")
     assert n.frontmatter_error and n.frontmatter == {} and n.headings == [(1, "Title")]
+
+
+def test_heading_starts_point_into_the_original_text():
+    text = NL.join(["---", "a: 1", "---", "intro", "```", "# not a heading", "```",
+                    "## Real", "body", "### Deeper ###", ""])
+    n = parse_note(text, "x.md")
+    assert n.headings == [(2, "Real"), (3, "Deeper")]
+    assert [text[i:i + 7] for i in n.heading_starts] == ["## Real", "### Dee"]
+    assert text[n.body_start:].startswith("intro")

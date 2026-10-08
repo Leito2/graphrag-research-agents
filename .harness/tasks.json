@@ -5,7 +5,7 @@
     {
       "id": "GRA-001",
       "title": "M1 \u2014 vault indexing (parser, chunks, structural graph, live watcher)",
-      "phase": "tasks",
+      "phase": "apply",
       "status": "in_progress",
       "spec_dir": ".harness/specs/graphrag-research-system",
       "mode": "interactive",

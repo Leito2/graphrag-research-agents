@@ -1,7 +1,7 @@
 [project]
 name = "researchcore"
 version = "0.1.0"
-description = "Contracts, deterministic Leader, graph schema and the Obsidian vault parser."
+description = "Hexagonal core: research contracts, deterministic Leader, graph schema, Obsidian parser and ports."
 requires-python = ">=3.12"
 dependencies = ["pydantic>=2.8", "pyyaml>=6.0"]
 

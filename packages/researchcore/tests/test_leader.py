@@ -1,5 +1,5 @@
-from researchcore.contracts import AuditFinding, ResearchNote, ResearchState
-from researchcore.leader import next_step
+from researchcore.research.contracts import AuditFinding, ResearchNote, ResearchState
+from researchcore.research.leader import next_step
 
 
 def state(**kw) -> ResearchState:

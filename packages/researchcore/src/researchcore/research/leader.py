@@ -1,7 +1,7 @@
 """Deterministic Leader (inherited ADR-HARNESS-001, PLAN ADR-2): transitions read the state, never an LLM."""
 from typing import Literal
 
-from researchcore.contracts import ResearchState
+from researchcore.research.contracts import ResearchState
 
 Next = Literal["planner", "fact_auditor", "synthesis", "human", "writer", "end"]
 

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "GraphRAG multi-agent research assistant over an Obsidian study vault (LangGraph, Neo4j, MCP)."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["researchcore"]
+dependencies = ["researchcore", "researchadapters"]
 
 [tool.uv]
 package = false
@@ -14,9 +14,10 @@ members = ["packages/*"]
 
 [tool.uv.sources]
 researchcore = { workspace = true }
+researchadapters = { workspace = true }
 
 [dependency-groups]
-dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6"]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "import-linter>=2.1"]
 
 [tool.ruff]
 line-length = 110
@@ -26,7 +27,24 @@ target-version = "py312"
 select = ["E", "F", "I", "UP", "B"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["researchcore"]
+known-first-party = ["researchcore", "researchadapters"]
 
 [tool.pytest.ini_options]
-testpaths = ["packages/researchcore/tests", "tests"]
+testpaths = ["packages/researchcore/tests", "packages/researchadapters/tests", "tests"]
+
+# Hexagonal dependency rule (ADR-012), checked by `lint-imports` in CI.
+[tool.importlinter]
+root_packages = ["researchcore", "researchadapters"]
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "The core does not depend on adapters"
+type = "forbidden"
+source_modules = ["researchcore"]
+forbidden_modules = ["researchadapters"]
+
+[[tool.importlinter.contracts]]
+name = "The core does no I/O through frameworks or drivers"
+type = "forbidden"
+source_modules = ["researchcore"]
+forbidden_modules = ["neo4j", "qdrant_client", "httpx", "requests", "fastapi", "langgraph", "langchain_core", "mcp"]

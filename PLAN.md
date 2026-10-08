@@ -397,8 +397,10 @@ Ejecución: `make doctor` → `make up` → `make index` (primera indexación de
 graphrag-research-agents/
 ├── README.md · PLAN.md · AGENTS.md · LICENSE · Makefile · docker-compose.yml · pyproject.toml (workspace uv)
 ├── .harness/ (tasks.json, agents/, skills/, memory/, specs/)
-├── packages/researchcore/      # contratos, Leader, esquema del grafo, parser de Obsidian
-├── services/
+├── packages/
+│   ├── researchcore/          # núcleo hexagonal (ADR-012): vault/, graph/, research/ + ports.py, sin I/O
+│   └── researchadapters/      # adaptadores de los puertos: fs_vault, neo4j_graph (luego Qdrant, búsqueda, LLM)
+├── services/                   # adaptadores de entrada y raíces de composición
 │   ├── ingest/                 # watcher, chunking, embeddings, grafo, conceptos, comunidades
 │   ├── agents/                 # grafo de LangGraph, roles, modos, Writer
 │   ├── mcp/ (vault, graph, web, scholar, code)

@@ -139,6 +139,13 @@
       "status": "accepted",
       "date": "2026-10-06",
       "source": "PLAN.md §0/§2/§6"
+    },
+    {
+      "id": "ADR-012",
+      "title": "Hexagonal core (researchcore: domain + ports), shared researchadapters, services as composition roots; enforced by import-linter",
+      "status": "accepted",
+      "date": "2026-10-08",
+      "source": "docs/adr/0002-hexagonal-core.md"
     }
   ]
 }

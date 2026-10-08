@@ -1,4 +1,4 @@
-from researchcore.vault import LinkResolver, iter_vault, parse_note, read_note
+from researchcore.vault import LinkResolver, parse_note
 
 NL = chr(10)
 
@@ -58,18 +58,3 @@ def test_relative_links_and_dotted_titles():
 def test_invalid_frontmatter_is_flagged_not_fatal():
     n = parse_note("---" + NL + "tags: [unclosed" + NL + "---" + NL + "# Title" + NL, "x.md")
     assert n.frontmatter_error and n.frontmatter == {} and n.headings == [(1, "Title")]
-
-
-def test_iter_vault_is_recursive_and_skips_obsidian(tmp_path):
-    (tmp_path / ".obsidian").mkdir()
-    (tmp_path / ".obsidian" / "workspace.md").write_text("x", encoding="utf-8")
-    (tmp_path / "01 - Area" / "Course").mkdir(parents=True)
-    (tmp_path / "01 - Area" / "Course" / "00 - Welcome.md").write_text("# hi", encoding="utf-8")
-    (tmp_path / "Root.md").write_text("# root", encoding="utf-8")
-    assert iter_vault(tmp_path) == ["01 - Area/Course/00 - Welcome.md", "Root.md"]
-
-
-def test_read_note_reads_nested_notes(tmp_path):
-    (tmp_path / "Area" / "Course").mkdir(parents=True)
-    (tmp_path / "Area" / "Course" / "Note.md").write_text("# probe", encoding="utf-8")
-    assert read_note(tmp_path, "Area/Course/Note.md") == "# probe"

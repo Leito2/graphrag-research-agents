@@ -14,8 +14,9 @@ down:        ## Stop everything
 	docker compose --profile core --profile full down
 test:        ## Unit + contract tests
 	uv run pytest -q
-lint:        ## Lint
+lint:        ## Lint (ruff + hexagonal import contracts)
 	uv run ruff check .
+	uv run lint-imports
 fmt:         ## Format
 	uv run ruff format .
 index ask audit eval:   ## Implemented in later milestones (PLAN.md §13)

@@ -1,7 +1,7 @@
 [project]
 name = "graphrag-research-agents"
 version = "0.1.0"
-description = "GraphRAG multi-agent research system for financial-crime intelligence (LangGraph, Neo4j, MCP)."
+description = "GraphRAG multi-agent research assistant over an Obsidian study vault (LangGraph, Neo4j, MCP)."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = ["researchcore"]

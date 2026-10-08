@@ -5,12 +5,12 @@
     {
       "id": "GRA-001",
       "title": "M1 \u2014 vault indexing (parser, chunks, structural graph, live watcher)",
-      "phase": "spec",
-      "status": "ready",
+      "phase": "design",
+      "status": "in_progress",
       "spec_dir": ".harness/specs/graphrag-research-system",
       "mode": "interactive",
       "created_at": "2026-10-06T00:00:00Z",
-      "updated_at": "2026-10-06T00:00:00Z"
+      "updated_at": "2026-10-08T00:00:00Z"
     }
   ],
   "active": "GRA-001",
